@@ -1,0 +1,220 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lin's Visualization System 📊✨</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 1s ease-in;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffeb3b;
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(5px);
+            animation: slideUp 0.5s ease-in;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #ffeb3b;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 0.5rem;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lin's Visualization System 📈🚀</h1>
+        <p>Decision-Making Through Data Insights ✨</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home 🌟</a>
+        <a href="dash1.html">Dashboard 1 📊</a>
+        <a href="dash2.html">Dashboard 2 📈</a>
+        <a href="dash3.html">Dashboard 3 📉</a>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>About the System 💡</h2>
+            <p>
+                The visualization system at <a href="https://lin15153.github.io/tableau-clothes/" style="color: #ffeb3b;">https://lin15153.github.io/tableau-clothes/</a> is designed to provide actionable insights for an online clothing store. The data represents sales metrics, including quantities sold across categories (e.g., shirts, pants, shoes), prices, purchase dates, and basic customer demographics (e.g., age, location). Built with seasonal sales trends and customer preferences in mind, the system enables analysis of store performance and identification of business patterns. Powered by Tableau and integrated into a modern, animated website with gradient designs, it offers a professional and engaging user experience. 🎉
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Explore Our Dashboards 🌐</h2>
+            <div class="button-container">
+                <a href="dash1.html" class="btn">System 1 - Sales Dashboard 📊</a>
+                <a href="dash2.html" class="btn">System 2 - Customer Insights 📈</a>
+                <a href="dash3.html" class="btn">System 3 - Trend Analysis 📉</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Lin's Visualization System | Made with ❤️ & ☕</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const section = document.querySelector(this.getAttribute('href'));
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Button bounce effect on load
+        window.addEventListener('load', () => {
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach((btn, index) => {
+                setTimeout(() => {
+                    btn.style.animation = 'bounce 0.5s ease';
+                }, index * 200);
+            });
+        });
+
+        // Bounce animation keyframes
+        const styleSheet = document.styleSheets[0];
+        styleSheet.insertRule(`
+            @keyframes bounce {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `, styleSheet.cssRules.length);
+    </script>
+</body>
+</html>

@@ -42,7 +42,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lin's Visualization System 📊✨</title>
+    <title>Clothing Sales Analytics 📊✨</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -115,7 +115,7 @@
             margin-top: 2rem;
         }
 
-        .btn {
+        .dashboard-button {
             background: linear-gradient(45deg, #4facfe, #00f2fe);
             padding: 1rem 2rem;
             border: none;
@@ -124,11 +124,11 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: transform 0.3s ease;
-            text-align: center;
             text-decoration: none;
+            text-align: center;
         }
 
-        .btn:hover {
+        .dashboard-button:hover {
             transform: translateY(-5px);
         }
 
@@ -151,57 +151,67 @@
 </head>
 <body>
     <header>
-        <h1>Lin's Visualization System 📈🚀</h1>
-        <p>Decision-Making Through Data Insights ✨</p>
+        <h1>Lin's Clothing Sales Analytics 📈🚀</h1>
+        <p>Visualizing Data for Smarter Decisions ✨</p>
     </header>
 
     <nav>
-        <a href="index.html">Home 🌟</a>
-        <a href="dash1.html">Dashboard 1 📊</a>
-        <a href="dash2.html">Dashboard 2 📈</a>
-        <a href="dash3.html">Dashboard 3 📉</a>
+        <a href="#home">Home 🌟</a>
+        <a href="#about">About 🧐</a>
+        <a href="#dashboards">Dashboards 📊</a>
+        <a href="#contact">Contact 📩</a>
     </nav>
 
     <div class="container">
-        <div class="section">
-            <h2>About the System 💡</h2>
+        <div class="section" id="home">
+            <h2>Welcome to the Analytics Hub 🌐</h2>
             <p>
-                The visualization system at <a href="https://lin15153.github.io/tableau-clothes/" style="color: #ffeb3b;">https://lin15153.github.io/tableau-clothes/</a> is designed to provide actionable insights for an online clothing store. The data represents sales metrics, including quantities sold across categories (e.g., shirts, pants, shoes), prices, purchase dates, and basic customer demographics (e.g., age, location). Built with seasonal sales trends and customer preferences in mind, the system enables analysis of store performance and identification of business patterns. Powered by Tableau and integrated into a modern, animated website with gradient designs, it offers a professional and engaging user experience. 🎉
+                The system at <a href="https://lin15153.github.io/tableau-clothes/" style="color: #ffeb3b;">https://lin15153.github.io/tableau-clothes/</a> is a powerful visualization tool designed to support decision-making for an online clothing store. The data represents sales metrics, including quantities sold across categories (e.g., shirts, pants, shoes), prices, purchase dates, and basic customer demographics (e.g., age, location). Built with seasonal trends and customer preferences in mind, the Tableau dashboards enable analysis of store performance and identification of business patterns. Explore our interactive dashboards below! 🎉
             </p>
         </div>
 
-        <div class="section">
-            <h2>Explore Our Dashboards 🌐</h2>
+        <div class="section" id="dashboards">
+            <h2>Explore Our Dashboards 📊</h2>
             <div class="button-container">
-                <a href="dash1.html" class="btn">System 1 - Sales Dashboard 📊</a>
-                <a href="dash2.html" class="btn">System 2 - Customer Insights 📈</a>
-                <a href="dash3.html" class="btn">System 3 - Trend Analysis 📉</a>
+                <a href="dash1.html" class="dashboard-button">System 1 - Sales Overview 📈</a>
+                <a href="dash2.html" class="dashboard-button">System 2 - Customer Insights 👥</a>
+                <a href="dash3.html" class="dashboard-button">System 3 - Seasonal Trends 🌟</a>
             </div>
+        </div>
+
+        <div class="section" id="about">
+            <h2>About the System 🧑‍💻</h2>
+            <p>
+                Created by Lin, this system leverages Tableau's powerful visualization capabilities to deliver actionable insights for retail businesses. The modern design with gradient colors and animations ensures an engaging user experience. 💡
+            </p>
+        </div>
+
+        <div class="section" id="contact">
+            <h2>Contact Us 📬</h2>
+            <p>Reach out at: lin.analytics@awesome.com 🌈</p>
         </div>
     </div>
 
     <footer>
-        <p>© 2025 Lin's Visualization System | Made with ❤️ & ☕</p>
+        <p>© 2025 Lin's Analytics Hub | Made with ❤️ & ☕</p>
     </footer>
 
     <script>
         // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const section = document.querySelector(this.getAttribute('href'));
-                    section.scrollIntoView({ behavior: 'smooth' });
-                }
+                e.preventDefault();
+                const section = document.querySelector(this.getAttribute('href'));
+                section.scrollIntoView({ behavior: 'smooth' });
             });
         });
 
-        // Button bounce effect on load
+        // Bounce effect for buttons on load
         window.addEventListener('load', () => {
-            const buttons = document.querySelectorAll('.btn');
-            buttons.forEach((btn, index) => {
+            const buttons = document.querySelectorAll('.dashboard-button');
+            buttons.forEach((button, index) => {
                 setTimeout(() => {
-                    btn.style.animation = 'bounce 0.5s ease';
+                    button.style.animation = 'bounce 0.5s ease';
                 }, index * 200);
             });
         });
